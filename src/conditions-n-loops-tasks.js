@@ -468,8 +468,18 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const copyArr = arr;
+  for (let i = 0; i < copyArr.length - 1; i += 1) {
+    let j = i + 1;
+    while (j !== 0 && copyArr[j - 1] > copyArr[j]) {
+      const position = copyArr[j];
+      copyArr[j] = copyArr[j - 1];
+      copyArr[j - 1] = position;
+      j -= 1;
+    }
+  }
+  return copyArr;
 }
 
 /**
@@ -512,6 +522,27 @@ function shuffleChar(/* str, iterations */) {
  */
 function getNearestBigger(/* number */) {
   throw new Error('Not implemented');
+  // const numStr = number.toString();
+  // const n = numStr.length;
+  // let i = 0,
+  //   j = 0;
+
+  // for (i = n - 1; i >= 1; i -= 1) {
+  //   if (numStr[i - 1] < numStr[i]) break;
+  // }
+
+  // if (i === 0) {
+  //   return number;
+  // }
+  // i -= 1;
+  // for (j = i + 1; j < n; j += 1) {
+  //   if (numStr[j] <= numStr[i]) break;
+  // }
+  // j -= 1;
+  // let numArray = numStr.split('');
+  // [numArray[i], numArray[j]] = [numArray[j], numArray[i]];
+  // numArray = numArray.slice(0, i + 1).concat(numArray.slice(i + 1).sort());
+  // return parseInt(numArray.join(''));
 }
 
 module.exports = {
