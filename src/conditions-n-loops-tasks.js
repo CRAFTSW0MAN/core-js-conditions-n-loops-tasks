@@ -520,30 +520,61 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
-  // const numStr = number.toString();
-  // const n = numStr.length;
-  // let i = 0,
-  //   j = 0;
 
-  // for (i = n - 1; i >= 1; i -= 1) {
-  //   if (numStr[i - 1] < numStr[i]) break;
-  // }
-
-  // if (i === 0) {
-  //   return number;
-  // }
-  // i -= 1;
-  // for (j = i + 1; j < n; j += 1) {
-  //   if (numStr[j] <= numStr[i]) break;
-  // }
-  // j -= 1;
-  // let numArray = numStr.split('');
-  // [numArray[i], numArray[j]] = [numArray[j], numArray[i]];
-  // numArray = numArray.slice(0, i + 1).concat(numArray.slice(i + 1).sort());
-  // return parseInt(numArray.join(''));
+function getNearestBigger(n) {
+  const numStr = Array.from(String(n), Number);
+  for (let i = numStr.length - 2; i >= 0; i -= 1) {
+    const j = i + 1;
+    if (numStr[i] < numStr[j]) {
+      let littleNum = numStr[j];
+      let index = j;
+      for (let k = i + 1; k < numStr.length; k += 1) {
+        if (littleNum > numStr[k]) {
+          littleNum = numStr[k];
+          index = k;
+        }
+      }
+      const position = numStr[i];
+      numStr[i] = littleNum;
+      numStr[index] = position;
+      const arrSort = numStr.splice(j, numStr.length);
+      numStr.push(...arrSort.sort((a, b) => a - b));
+      break;
+    }
+  }
+  return Number(numStr.join(''));
 }
+// function getNearestBigger(number) {
+//   const numStr = number.toString();
+//   for (let i = numStr.length - 2; i >= 0; i -= 1) {
+//     const j = i + 1;
+//     if (numStr[i] < numStr[j]) {
+//       const position = numStr[j];
+//       numStr[j] = numStr[i];
+//       numStr[j] = position;
+//     }
+//   }
+// const n = numStr.length;
+// let i = 0,
+//   j = 0;
+
+// for (i = n - 1; i >= 1; i -= 1) {
+//   if (numStr[i - 1] < numStr[i]) break;
+// }
+
+// if (i === 0) {
+//   return number;
+// }
+// i -= 1;
+// for (j = i + 1; j < n; j += 1) {
+//   if (numStr[j] <= numStr[i]) break;
+// }
+// j -= 1;
+// let numArray = numStr.split('');
+// [numArray[i], numArray[j]] = [numArray[j], numArray[i]];
+// numArray = numArray.slice(0, i + 1).concat(numArray.slice(i + 1).sort());
+//   return parseInt(numArray.join(''));
+// }
 
 module.exports = {
   isPositive,
