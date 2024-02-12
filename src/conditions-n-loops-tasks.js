@@ -331,21 +331,23 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  // let sumStart = 0;
+function getBalanceIndex(arr) {
+  let totalSum = 0;
 
-  // for (let i = 0; i < arr.length; i += 1) {
-  //   sumStart += arr[i];
-  //   let sumEnd = 0;
-  //   for (let j = arr.length - 1; j >= 0; j -= 1) {
-  //     sumEnd += arr[j];
-  //     if (sumStart === sumEnd) {
-  //       return i + 1;
-  //     }
-  //   }
-  // }
-  // return -1;
-  throw new Error('Not implemented');
+  for (let i = 0; i < arr.length; i += 1) {
+    totalSum += arr[i];
+  }
+
+  let leftSum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    const rightSum = totalSum - leftSum - arr[i];
+    if (leftSum === rightSum) {
+      return i;
+    }
+    leftSum += arr[i];
+  }
+
+  return -1;
 }
 
 /**
@@ -369,8 +371,44 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const arr = [];
+  for (let i = 0; i < size; i += 1) {
+    arr[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      arr[i][j] = [];
+    }
+  }
+  let startNum = 1;
+  let startColumn = 0;
+  let endColumn = size - 1;
+  let startRow = 0;
+  let endRow = size - 1;
+
+  while (startColumn <= endColumn && startRow <= endRow) {
+    for (let i = startColumn; i <= endColumn; i += 1) {
+      arr[startRow][i] = startNum;
+      startNum += 1;
+    }
+    startRow += 1;
+    for (let j = startRow; j <= endRow; j += 1) {
+      arr[j][endColumn] = startNum;
+      startNum += 1;
+    }
+    endColumn -= 1;
+    for (let k = endColumn; k >= startColumn; k -= 1) {
+      arr[endRow][k] = startNum;
+      startNum += 1;
+    }
+    endRow -= 1;
+    for (let l = endRow; l >= startRow; l -= 1) {
+      arr[l][startColumn] = startNum;
+      startNum += 1;
+    }
+    startColumn += 1;
+  }
+
+  return arr;
 }
 
 /**
